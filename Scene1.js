@@ -11,10 +11,15 @@ class Scene1 extends Phaser.Scene{
   }
 
   create() {
+    this.physics.checkCollision.down = false;
     this.ball = this.physics.add.sprite(config.width*0.5, config.height-25, 'ball');
     this.ball.body.setVelocity(150, -150);
     this.ball.setCollideWorldBounds(true);
     this.ball.setBounce(1);
+    this.ball.events.onOutOfBounds.add(() => {
+      alert('Game Over!');
+      location.reload();
+    }, this);
 
     this.paddle = this.physics.add.sprite(config.width*0.5, config.height-5, 'paddle');
     this.paddle.body.immovable = true;
